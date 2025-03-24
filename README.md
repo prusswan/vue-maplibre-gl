@@ -21,6 +21,9 @@ This is a fork of [vue-maplibre-gl](https://github.com/razorness/vue-maplibre-gl
 - Automatic restart on CONTEXT_LOST_WEBGL which can happen on mobile devices when tab was in background for longer time
 - Small size
 
+## Local build
+
+`yarn run build`
 
 ## Documentation
 

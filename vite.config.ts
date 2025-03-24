@@ -26,6 +26,7 @@ export default defineConfig({
   ssr    : {
     external: [ 'vue', 'maplibre-gl', 'geojson' ]
   },
+  base: './',
   build  : {
     sourcemap    : true,
     lib          : {
@@ -33,26 +34,35 @@ export default defineConfig({
       name    : 'VueMaplibreGl',
       fileName: format => `vue-maplibre-gl.${format}.js`
     },
+    minify: false,
+    terserOptions: {
+      compress: false,
+      mangle: false,
+    },
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled
       // into your library
       external: [
-	'vue',
-	'maplibre-gl',
-	'geojson'
+        'vue',
+        'maplibre-gl',
+        'geojson'
       ],
       output  : {
-	assetFileNames: (assetInfo) => {
-	  return assetInfo.name;
-	},
-	exports       : 'named',
-	// Provide global variables to use in the UMD build
-	// for externalized deps
-	globals: {
-	  vue          : 'Vue',
-	  'maplibre-gl': 'maplibregl',
-	  geojson      : 'geojson'
-	},
+        manualChunks: undefined,
+        //assetFileNames: "assets/[name].[ext]", // Output assets (e.g., images, SVGs) to the assets folder
+        //entryFileNames: "assets/[name].js", // Output entry files (e.g., JavaScript) to the root directory
+        //chunkFileNames: "assets/[name].js", // Output dynamic imports (chunks) to the assets folder
+        assetFileNames: (assetInfo) => {
+          return assetInfo.name;
+        },
+        exports       : 'named',
+        // Provide global variables to use in the UMD build
+        // for externalized deps
+        globals: {
+          vue          : 'Vue',
+          'maplibre-gl': 'maplibregl',
+          geojson      : 'geojson'
+        },
       },
     }
   },
