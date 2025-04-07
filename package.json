@@ -38,6 +38,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
+    "build-demo": "vue-tsc -b && vite build --config vite.config.demo.ts",
     "preview": "vite preview",
     "upgrade": "npx taze major -I"
   },

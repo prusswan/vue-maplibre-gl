@@ -5,9 +5,20 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + Vue + TS</title>
+    <!-- importmap for built demo to work -->
+    <script type="importmap">
+      {
+        "imports": {
+          "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js",
+          "maplibre-gl": "https://esm.sh/maplibre-gl@5.2.0/es2022/maplibre-gl.mjs",
+          "mitt": "https://cdn.jsdelivr.net/npm/mitt@3.0.1/+esm",
+          "geojson": "https://cdn.jsdelivr.net/npm/geojson@0.5.0/geojson.min.js"
+        }
+      }
+    </script>
 </head>
 <body>
 <div id="app"></div>
-<script type="module" src="/main.ts"></script>
+<script type="module" src="./main-ext.ts"></script>
 </body>
 </html>

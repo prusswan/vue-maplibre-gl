@@ -229,7 +229,7 @@ export default /*#__PURE__*/ defineComponent({
 			if (map.value) {
 				// unbind events
 				map.value.getCanvas().removeEventListener('webglcontextlost', restart);
-				map.value._controls.forEach((control) => {
+				map.value._controls.forEach((control: any) => {
 					map.value!.removeControl(control);
 				});
 				isInitialized.value = false;
@@ -253,7 +253,7 @@ export default /*#__PURE__*/ defineComponent({
 		onMounted(() => {
 
 			initialize();
-			return;
+			//return;
 
 			// bind resize observer
 			if (map.value) {

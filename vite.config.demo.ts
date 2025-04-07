@@ -12,6 +12,7 @@ export default defineConfig(({ command }) => ({
 	root   : resolve(__dirname, command === 'serve' ? 'dev' : ''),
 	plugins: [
 		vue(),
+		/*
 		dts({
 			entryRoot       : 'src',
 			include         : 'src',
@@ -20,6 +21,7 @@ export default defineConfig(({ command }) => ({
 			outDir          : 'dist/types',
 			tsconfigPath    : './tsconfig.app.json',
 		}),
+		*/
 		banner(`/*!
 * ${pkg.name} v${pkg.version}
 * (c) ${new Date().getFullYear()} ${pkg.author.name}
@@ -32,9 +34,10 @@ export default defineConfig(({ command }) => ({
   base: './',
 	build  : {
 		cssCodeSplit : true,
-		emptyOutDir  : true,
+		emptyOutDir  : false,
 		cssMinify    : 'lightningcss',
 		sourcemap    : true,
+		/*
 		lib          : {
 			entry: {
 				'vue-maplibre-gl'     : resolve(__dirname, 'src/main.ts'),
@@ -44,6 +47,7 @@ export default defineConfig(({ command }) => ({
       fileName: (format, entryName) => `${entryName}.${format}.js`,
       formats: ["cjs", "es"]
 		},
+		*/
     minify: false,
     terserOptions: {
       compress: false,
@@ -59,8 +63,6 @@ export default defineConfig(({ command }) => ({
 				'geojson',
 				'mitt'
 			],
-			// uncomment the block below to build the demo together with lib, but rather messy
-
       input: {
         dev: resolve(__dirname, "dev/index.html"),
         //mapview: resolve(__dirname, "index.html"),
@@ -68,7 +70,6 @@ export default defineConfig(({ command }) => ({
 				'vue-maplibre-gl'     : resolve(__dirname, 'src/main.ts'),
 				'vue-maplibre-gl-draw': resolve(__dirname, 'src/plugins/draw/index.ts'),
       },
-
 			output  : {
 				//format: 'es',
         //manualChunks: undefined,
@@ -114,7 +115,6 @@ export default defineConfig(({ command }) => ({
 		alias: [
 			{ find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) },
 			{ find: /^~(.+)/, replacement: '$1' }
-		],
-		preserveSymlinks: true
+		]
 	},
 }));
