@@ -29,6 +29,7 @@ export default defineConfig(({ command }) => ({
 	ssr    : {
 		external: [ 'vue', 'maplibre-gl', 'geojson', 'mitt' ]
 	},
+  base: './',
 	build  : {
 		cssCodeSplit : true,
 		emptyOutDir  : true,
@@ -38,8 +39,15 @@ export default defineConfig(({ command }) => ({
 			entry: {
 				'vue-maplibre-gl'     : resolve(__dirname, 'src/main.ts'),
 				'vue-maplibre-gl-draw': resolve(__dirname, 'src/plugins/draw/index.ts'),
-			}
+			},
+      name    : 'VueMaplibreGl',
+      fileName: (format, entryName) => `${entryName}.${format}.js`
 		},
+    minify: false,
+    terserOptions: {
+      compress: false,
+      mangle: false,
+    },
 		rollupOptions: {
 			preserveEntrySignatures: 'strict',
 			// make sure to externalize deps that shouldn't be bundled
@@ -51,6 +59,18 @@ export default defineConfig(({ command }) => ({
 				'mitt'
 			],
 			output  : {
+        //manualChunks: undefined,
+        //assetFileNames: "assets/[name].[ext]", // Output assets (e.g., images, SVGs) to the assets folder
+        assetFileNames: "assets/[name].[ext]", // Output assets (e.g., images, SVGs) to the assets folder
+        //entryFileNames: "assets/[name].js", // Output entry files (e.g., JavaScript) to the root directory
+        entryFileNames: "assets/[name].[format].js", // Output entry files (e.g., JavaScript) to the root directory
+        //chunkFileNames: "assets/[name].js", // Output dynamic imports (chunks) to the assets folder
+        chunkFileNames: "assets/[name].[format].js", // Output dynamic imports (chunks) to the assets folder
+        /*
+        assetFileNames: (assetInfo) => {
+          return assetInfo.name;
+        },
+        */
 				exports: 'named',
 				// Provide global variables to use in the UMD build
 				// for externalized deps

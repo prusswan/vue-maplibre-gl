@@ -23,7 +23,9 @@ A small Vue 3 plugin for [maplibre-gl-js](https://github.com/maplibre/maplibre-g
 - Automatic restart on CONTEXT_LOST_WEBGL which can happen on mobile devices when tab was in background for longer time
 - Small size
 
-## Table of contents
+## Local build
+
+`yarn run build`
 
 - [Installation](#installation)
 - [Usage](#usage)
@@ -115,7 +117,7 @@ You can use the draw plugin without using the `MglDrawComponent`. See [src/compo
 
 ![Circle Mode](https://github.com/user-attachments/assets/949fbca0-2eb2-4eb4-a5d8-b6b9f043bf46)
 
-### Circle Static 
+### Circle Static
 
 This mode uses a circle which behaves static to camera viewport. Can be very handy for usage on smartphones.
 
@@ -124,7 +126,7 @@ This mode uses a circle which behaves static to camera viewport. Can be very han
 
 ## Styling Polygon and Circle Mode
 
-There is a default style used which can be found in [src/plugins/draw/styles.ts](src/plugins/draw/styles.ts). 
+There is a default style used which can be found in [src/plugins/draw/styles.ts](src/plugins/draw/styles.ts).
 To customize the design when drawing polygon or circle, you can set your own by:
 
 ```vue
