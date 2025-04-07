@@ -116,14 +116,18 @@ export default /*#__PURE__*/ defineComponent({
 	setup(props, ctx) {
 
 		const component      = markRaw(getCurrentInstance()!),
-			  container      = shallowRef<HTMLDivElement>(),
-			  map            = shallowRef<MaplibreMap>(),
+			  //container      = shallowRef<HTMLDivElement>(),
+			  container      = shallowRef(),
+			  //map            = shallowRef<MaplibreMap>(),
+			  map            = shallowRef(),
 			  isInitialized  = ref(false),
 			  isLoaded       = ref(false),
 			  isStyleReady   = ref(false),
 			  boundMapEvents = new Map<string, Function>(),
 			  emitter        = mitt<MglEvents>(),
 			  registryItem   = registerMap(component as any, map, props.mapKey);
+
+		console.log("setup props, ctx", container, map);
 
 		let resizeObserver: ResizeObserver | undefined;
 
@@ -188,10 +192,13 @@ export default /*#__PURE__*/ defineComponent({
 											   (obj as any)[ opt === 'mapStyle' ? 'style' : opt ] = unref((props as any)[ opt ]);
 											   return obj;
 										   }, { container: container.value as HTMLDivElement } as any);
-
+            console.log("map opts:", opts); // container should be present
 			// init map
 			map.value           = markRaw(new MaplibreMap(opts));
 			registryItem.map    = map.value;
+			console.log("map.value", map, map.value);
+			console.log("container.value", container, container.value);
+
 			isInitialized.value = true;
 			boundMapEvents.set('__load', () => (isLoaded.value = true, registryItem.isLoaded = true));
 			map.value.once('styledata', onStyleReady);
@@ -246,6 +253,7 @@ export default /*#__PURE__*/ defineComponent({
 		onMounted(() => {
 
 			initialize();
+			return;
 
 			// bind resize observer
 			if (map.value) {
@@ -272,17 +280,20 @@ export default /*#__PURE__*/ defineComponent({
 
 		ctx.expose({ map });
 
-		return () => h(
-			'div',
-			{
-				'class': 'mgl-container',
-				style  : { height: props.height, width: props.width }
-			},
-			[
-				h('div', { ref: container, 'class': 'mgl-wrapper' }),
-				isInitialized.value && ctx.slots.default ? ctx.slots.default({}) : undefined
-			]
-		);
+		return () => {
+			console.log("return section of setup (last part)");
+			return h(
+				'div',
+				{
+					'class': 'mgl-container',
+					style  : { height: props.height, width: props.width }
+				},
+				[
+					h('div', { ref: container, 'class': 'mgl-wrapper' }),
+					isInitialized.value && ctx.slots.default ? ctx.slots.default({}) : undefined
+				]
+			);
+		}
 
 	}
 });
