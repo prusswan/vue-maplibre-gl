@@ -77,6 +77,7 @@ export default defineConfig({
               memo.get(type).push(component);
               return memo;
             }, new Map()).entries()].flatMap(([type, components]) => {
+              console.log("type:", type);
               components.sort((a, b) => a.params.component.localeCompare(b.params.component) );
               if (type === 'components') {
                 return components.map((component) => {
@@ -86,8 +87,16 @@ export default defineConfig({
                   };
                 });
               }
+
+              let text;
+              if (type === undefined) {
+                text = "placeholder"
+              }
+              else {
+                text = type[0].toUpperCase() + type.slice(1);
+              }
               return {
-                text: type[0].toUpperCase() + type.slice(1),
+                text: text, //type[0].toUpperCase() + type.slice(1),
                 items: components.map((component) => {
                   return {
                     text: component.params.title,
