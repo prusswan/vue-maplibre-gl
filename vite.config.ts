@@ -48,13 +48,15 @@ export default defineConfig({
         'geojson'
       ],
       output  : {
-        manualChunks: undefined,
+        //manualChunks: undefined,
         //assetFileNames: "assets/[name].[ext]", // Output assets (e.g., images, SVGs) to the assets folder
         //entryFileNames: "assets/[name].js", // Output entry files (e.g., JavaScript) to the root directory
         //chunkFileNames: "assets/[name].js", // Output dynamic imports (chunks) to the assets folder
+        /*
         assetFileNames: (assetInfo) => {
           return assetInfo.name;
         },
+        */
         exports       : 'named',
         // Provide global variables to use in the UMD build
         // for externalized deps

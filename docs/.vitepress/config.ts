@@ -6,7 +6,18 @@ import componentsPath from '../api/[component].paths.js';
 export default defineConfig({
   title: "@indoorequal/vue-maplibre-gl",
   description: "Vue 3 plugin for maplibre-gl",
-  base: process.env.NODE_ENV === 'production' ? '/vue-maplibre-gl/': '/',
+  //base: process.env.NODE_ENV === 'production' ? '/vue-maplibre-gl/': '/',
+  base: './',
+  vite: {
+    //base: './../',
+    build: {
+      minify: false,
+      terserOptions: {
+        compress: false,
+        mangle: false,
+      },
+    },
+  },
   transformPageData: (pageData, { siteConfig }) => {
     if (pageData.filePath.startsWith('examples/') && pageData.filePath != 'examples/index.md') {
       return {
